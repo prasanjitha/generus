@@ -1,0 +1,2 @@
+# generus
+react native firebase
