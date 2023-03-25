@@ -8,4 +8,5 @@ export default {
     red: '#E54545',
     lightBlue: '#2D75E8',
     darkBlue: '#3252A7',
+    bgBlue: '#EEEFFF',
 }

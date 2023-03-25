@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CustomColors from '../config/CustomColors';
 
-function AppButton({ btnText = 'SignIn', btnColor = CustomColors.primary }) {
+function AppButton({ btnText = 'SignIn', onPress, btnColor = CustomColors.primary }) {
     return (
-        <TouchableOpacity style={[styles.login, { backgroundColor: btnColor }]}>
+        <TouchableOpacity onPress={onPress} style={[styles.login, { backgroundColor: btnColor }]}>
 
             <Text style={styles.textBtn}>{btnText}</Text>
 

@@ -2,11 +2,13 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import CustomColors from '../config/CustomColors';
 
-function AppLineTextInput({ hintText }) {
+function AppLineTextInput({ hintText, ...otherProps }) {
     return (
         <View style={styles.textInput}>
             <Text style={styles.inputPlaceholder}>{hintText}</Text>
-            <TextInput />
+            <TextInput
+                {...otherProps}
+            />
         </View>
     );
 }
