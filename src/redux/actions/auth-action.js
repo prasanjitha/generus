@@ -82,7 +82,7 @@ export const loginUser = (data, navigation) => async dispatch => {
             Toast.show({
                 type: 'success',
                 text1: 'User Login Success!',
-                text2: `Please login 👋`
+                text2: `Hello 👋`
             });
             navigation.navigate('TabHomeScreen');
         })
