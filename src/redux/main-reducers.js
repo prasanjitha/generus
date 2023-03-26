@@ -5,6 +5,7 @@ import {
 
 export const initialState = {
     isLoading: false,
+    imageUrl: '',
 
 }
 
