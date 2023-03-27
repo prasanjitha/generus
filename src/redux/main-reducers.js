@@ -2,11 +2,10 @@ import {
     SHOW_MODEL,
 } from "./user-action";
 
-
 export const initialState = {
     isLoading: false,
-    imageUrl: '',
-
+    isImgUploading: false,
+    imageUrl: 'imageUri',
 }
 
 function mainReducer(state = initialState, action) {

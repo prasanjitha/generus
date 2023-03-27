@@ -4,44 +4,51 @@ import {
     signInWithEmailAndPassword,
 } from "firebase/auth";
 import Toast from 'react-native-toast-message';
-import { db, storange } from "../../config/firebase";
-import { ref, set } from 'firebase/database';
+import { db, storage } from "../../config/firebase";
+// import { ref } from 'firebase/database';
 import { collection, addDoc } from 'firebase/firestore';
-import { uploadBytesResumable } from "firebase/storage";
-import { useNavigation } from "@react-navigation/native";
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "firebase/storage";
 import * as ImagePicker from 'expo-image-picker'
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const IS_LOADING = 'IS_LOADING';
 export const PICK_IMAGE = 'PICK_IMAGE';
 
+
 export const pickImage = () => async dispatch => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1
-    });
-    const source = { uri: result.assets[0].uri }
-    console.log(source);
-    const response = await fetch(source.uri)
-    const blob = response.blob()
-    const filename = source.uri.substring(source.uri.lastIndexOf('/') + 1);
-    console.log(filename);
+    try {
 
-    const storageRef = ref(storange, filename);
-    const uploadTask = uploadBytesResumable(storageRef, blob);
-    await uploadTask;
-    const photoUrl = await getDownloadURL(uploadTask.snapshot.ref);
-    console.log(photoUrl);
-
-    // const reference = ref(storange, filename)
-    // await uploadBytesResumable(reference, blob)
-    // console.log(await getDownloadURL(reference));
-    dispatch({
-        type: PICK_IMAGE,
-        payload: source,
-    });
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1
+        });
+        const source = { uri: result.assets[0].uri }
+        console.log(source);
+        const response = await fetch(source.uri)
+        const blob = await response.blob()
+        const filename = source.uri.substring(source.uri.lastIndexOf('/') + 1);
+        console.log(filename);
+        const storageRef = ref(storage, filename);
+        await uploadBytes(storageRef, blob)
+            .then((snapshot) => {
+                console.log('Uploaded!');
+            }).catch((error) => {
+                console.log(error.message);
+            })
+        const uri = await getDownloadURL(storageRef);
+        dispatch({
+            type: PICK_IMAGE,
+            payload: uri
+        });
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
