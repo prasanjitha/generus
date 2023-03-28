@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         color: CustomColors.gray,
     },
     textInput: {
+        width: '100%',
         borderBottomWidth: 2,
         borderBottomColor: CustomColors.primary,
     }
