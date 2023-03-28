@@ -84,3 +84,28 @@ export const uploadItem = (data, navigation) => async dispatch => {
     }
 
 }
+
+export const uploadCharity = (data, navigation) => async dispatch => {
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        const docRef = addDoc(collection(db, "generus-charity"), data);
+        console.log("User account created & signed in! ID: ", docRef.id);
+        await new Promise(resolve => setTimeout(resolve, 3000)); // await the programme
+        Toast.show({
+            type: 'success',
+            text1: 'Charity Created Success!',
+            text2: `Charity Created! 👋`
+        });
+        // navigation.navigate('SignInScreen');
+        dispatch({
+            type: IS_LOADING,
+            payload: false,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+}
