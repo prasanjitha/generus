@@ -14,13 +14,13 @@ function AppLineTextInput({ hintText, ...otherProps }) {
 }
 const styles = StyleSheet.create({
     inputPlaceholder: {
-        fontSize: 18.0,
+        fontSize: 16.0,
         fontWeight: '500',
         color: CustomColors.gray,
     },
     textInput: {
         width: '100%',
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderBottomColor: CustomColors.primary,
     }
 });

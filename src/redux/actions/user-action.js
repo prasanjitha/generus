@@ -6,7 +6,7 @@ import {
 import Toast from 'react-native-toast-message';
 import { db, storage } from "../../config/firebase";
 // import { ref, set } from 'firebase/database';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query } from 'firebase/firestore';
 import {
     ref,
     uploadBytes,
@@ -17,6 +17,9 @@ import * as ImagePicker from 'expo-image-picker';
 export const IS_LOADING = 'IS_LOADING';
 export const PICK_IMAGE = 'PICK_IMAGE';
 export const IS_IMAGE_UPLOADING = 'IS_IMAGE_UPLOADING';
+export const MY_ALL_ITEMS = 'MY_ALL_ITEMS';
+export const GET_LOGGED_USER = 'GET_LOGGED_USER';
+
 
 
 export const pickImage = () => async dispatch => {
@@ -66,6 +69,15 @@ export const uploadItem = (data, navigation) => async dispatch => {
             type: IS_LOADING,
             payload: true,
         });
+        let name = '';
+        const userQuery = query(collection(db, "generus-users"));
+        const userQuerySnapshot = await getDocs(userQuery);
+        userQuerySnapshot.forEach((doc) => {
+            if (auth.currentUser.email === doc.data().email) {
+                name = doc.data().username;
+            }
+        });
+        data.name = name;
         const docRef = addDoc(collection(db, "generus-item"), data);
         console.log("User account created & signed in! ID: ", docRef.id);
         await new Promise(resolve => setTimeout(resolve, 3000)); // await the programme
@@ -105,6 +117,72 @@ export const uploadCharity = (data, navigation) => async dispatch => {
             payload: false,
         });
     } catch (error) {
+        console.log(error);
+    }
+
+}
+
+export const loadMyItems = () => async dispatch => {
+    const allData = [];
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        const q = query(collection(db, "generus-item"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            const item = {
+                id: doc.id,
+                imageUrl: doc.data().imageUrl,
+                itemName: doc.data().itemName,
+                note: doc.data().specialNote,
+                ownerName: doc.data().name,
+            }
+            allData.push(item);
+        });
+        console.log(allData);
+        dispatch({ type: MY_ALL_ITEMS, payload: allData });
+        dispatch({ type: IS_LOADING, payload: false });
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+export const loadProfile = () => async dispatch => {
+    const allData = [];
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        const q = query(collection(db, "generus-user-info"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            if (auth.currentUser.email === doc.data().email) {
+                const item = {
+                    id: doc.id,
+                    distric: doc.data().distric,
+                    email: doc.data().email,
+                    imageUrl: doc.data().imageUrl,
+                    mobile: doc.data().mobile,
+                    province: doc.data().province,
+                    town: doc.data().town,
+                }
+                allData.push(item);
+            } else {
+                allData.push({});
+
+            }
+        });
+        console.log(allData);
+        dispatch({ type: GET_LOGGED_USER, payload: allData[0] });
+        dispatch({ type: IS_LOADING, payload: false });
+    } catch (error) {
+        allData.push({});
+        dispatch({ type: GET_LOGGED_USER, payload: allData[0] });
+        dispatch({ type: IS_LOADING, payload: false });
         console.log(error);
     }
 

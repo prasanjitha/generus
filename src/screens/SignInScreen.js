@@ -6,6 +6,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View,
 } from 'react-native';
 
@@ -27,7 +28,6 @@ function SignInScreen(props) {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const { isLoading } = useSelector(state => state.authReducers);
-
     return (
         <>
             <ScrollView style={styles.screen} showsVerticalScrollIndicator={false}>
@@ -72,7 +72,10 @@ function SignInScreen(props) {
                     <IconButton bgColor={CustomColors.darkBlue} name='in' />
                 </View>
                 <Space height={10.0} />
-                <Text style={styles.haveAcc}>Don't have an account? SignUp</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
+                    <Text style={styles.haveAcc}>Don't have an account? SignUp</Text>
+                </TouchableOpacity>
+
             </ScrollView>
             {isLoading && <AppLoader />}
         </>

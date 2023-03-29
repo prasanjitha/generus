@@ -6,6 +6,9 @@ export const initialState = {
     isLoading: false,
     isImgUploading: false,
     imageUrl: 'imageUri',
+    myItems: [],
+    userRegData: {},
+    loggedUser: [],
 }
 
 function mainReducer(state = initialState, action) {
