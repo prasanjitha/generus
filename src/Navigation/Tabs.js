@@ -15,12 +15,18 @@ import SignUpScreen from '../screens/SignUpScreen';
 import AccountScreen from '../screens/AccountScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import Navigation from './Navigation';
+import MyListingScreen from '../screens/MyListingScreen';
+import AddCarityScreen from '../screens/AddCarityScreen';
+import AddNewItemScreen from '../screens/AddNewItemScreen';
+import { useNavigation } from '@react-navigation/native';
+import UserProfileScreen from '../screens/UserProfileScreen';
 
 
 const Tab = createBottomTabNavigator();
 
 const CustomTabBarButton = ({ children, onPress }) => (
     <TouchableOpacity
+        onPress={onPress}
         style={{
             top: -30.0,
             justifyContent: 'center',
@@ -41,6 +47,8 @@ const CustomTabBarButton = ({ children, onPress }) => (
     </TouchableOpacity>
 );
 const Tabs = () => {
+
+    const navigation = useNavigation();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -83,7 +91,7 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen name='Account' component={AccountScreen}
+            <Tab.Screen name='MyListingScreenr' component={MyListingScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View>
@@ -105,12 +113,16 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen name='Post' component={WelcomeScreen} options={{
+            <Tab.Screen name='Post' component={AddNewItemScreen} options={{
                 tabBarIcon: ({ focused }) => (
                     <Image source={require('../assets/icons8-plus-math-30.png')} />
                 ),
                 tabBarButton: (props) => (
-                    <CustomTabBarButton {...props} />
+                    <CustomTabBarButton
+                        onPress={() => {
+                            navigation.navigate('MyListingScreen');
+                        }}
+                        {...props} />
                 )
             }} />
             <Tab.Screen name='SignIN' component={Navigation}
@@ -135,7 +147,7 @@ const Tabs = () => {
                     )
                 }}
             />
-            <Tab.Screen name='SignUp' component={SignUpScreen}
+            <Tab.Screen name='UserProfile' component={UserProfileScreen}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View>

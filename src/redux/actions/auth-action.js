@@ -17,6 +17,7 @@ import * as ImagePicker from 'expo-image-picker'
 export const LOGIN_USER = 'LOGIN_USER';
 export const IS_LOADING = 'IS_LOADING';
 export const PICK_IMAGE = 'PICK_IMAGE';
+export const USER_REG_DATA = 'USER_REG_DATA';
 
 
 export const pickImage = () => async dispatch => {
@@ -51,17 +52,46 @@ export const pickImage = () => async dispatch => {
     }
 }
 
+export const uploadUserAdditionalInfo = (data, navigation) => async dispatch => {
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        const docRef = addDoc(collection(db, "generus-user-info"), data);
+        console.log("User account created & signed in! ID: ", docRef.id);
+        await new Promise(resolve => setTimeout(resolve, 3000)); // await the programme
+        Toast.show({
+            type: 'success',
+            text1: 'Success!',
+            text2: `User Detals Added! 👋`
+        });
+        dispatch({
+            type: USER_REG_DATA,
+            payload: data,
+        });
+        navigation.navigate('SignInScreen');
+        dispatch({
+            type: IS_LOADING,
+            payload: false,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 export const registerUser = (data, navigation) => async dispatch => {
-    dispatch({
-        type: IS_LOADING,
-        payload: true,
-    });
+    console.log('user reg data', data);
     createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
             const docRef = addDoc(collection(db, "generus-users"), {
                 username: data.username,
                 email: data.email,
+            });
+            dispatch({
+                type: USER_REG_DATA,
+                payload: data,
             });
             console.log("User account created & signed in! ID: ", docRef.id);
             Toast.show({
@@ -73,7 +103,7 @@ export const registerUser = (data, navigation) => async dispatch => {
                 type: IS_LOADING,
                 payload: false,
             });
-            navigation.navigate('SignInScreen');
+            navigation.navigate('AdditionalInfoScreen');
         })
         .catch(error => {
             Toast.show({
@@ -110,6 +140,8 @@ export const registerUser = (data, navigation) => async dispatch => {
             }
             console.error(error);
         });
+
+
 }
 
 export const loginUser = (data, navigation) => async dispatch => {
@@ -162,3 +194,4 @@ export const loginUser = (data, navigation) => async dispatch => {
             console.error(error);
         });
 }
+

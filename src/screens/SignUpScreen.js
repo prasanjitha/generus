@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import AppButton from '../components/AppButton';
 import AppLineTextInput from '../components/AppLineTextInput';
@@ -88,7 +88,9 @@ function SignUpScreen(props) {
                     <IconButton bgColor={CustomColors.darkBlue} name='in' />
                 </View>
                 <Space height={10.0} />
-                <Text style={styles.haveAcc}>Don't have an account? SignIn</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+                    <Text style={styles.haveAcc}>Don't have an account? SignIn</Text>
+                </TouchableOpacity>
             </ScrollView>
             {isLoading && <AppLoader />}
         </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
@@ -12,7 +12,7 @@ import Space from '../components/Space';
 import CustomColors from '../config/CustomColors';
 import AppButton from '../components/AppButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { pickImage, uploadItem } from '../redux/actions/user-action';
+import { pickImage, uploadItem, loadMyItems } from '../redux/actions/user-action';
 import AppLoader from '../components/AppLoader';
 
 const initialState = {
@@ -31,6 +31,10 @@ function AddNewItemScreen(props) {
     ];
     const dispatch = useDispatch();
     const { imageUrl, isLoading, isImgUploading } = useSelector(state => state.userReducers);
+    useEffect(() => {
+        dispatch(loadMyItems());
+    }, [])
+
     return (
         <>
             <ScrollView>
@@ -105,14 +109,18 @@ function AddNewItemScreen(props) {
                     <AppButton
                         btnText='Add'
                         onPress={() => {
+                            var today = new Date();
                             const data = {
                                 imageUrl: imageUrl,
                                 category: chosenOption,
                                 itemName: itemName,
                                 specialNote: specialNote,
                                 pickDateAndTime: dateAndTime,
-                                addContactInfo: toggleCheckBox
+                                addContactInfo: toggleCheckBox,
+                                date: today.toLocaleDateString(),
                             }
+
+                            console.log(data);
                             dispatch(uploadItem(data));
                         }}
                     />
@@ -135,6 +143,7 @@ const styles = StyleSheet.create({
     },
     main: {
         margin: 20.0,
+        marginBottom: 200.0
     }
 });
 
