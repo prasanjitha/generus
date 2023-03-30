@@ -13,7 +13,7 @@ function MainScreen(props) {
             <Text style={styles.mainTitle}>Hello!</Text>
             <Text style={styles.subTitle}>Welcome to Generus, the place we can be more generous.</Text>
             <Space height={30.0} />
-            <AppButton btnText='Login' />
+            <AppButton btnText='sINGiN' />
             <Space />
             <AppBorderButton btnText='SignUp' />
         </View>
