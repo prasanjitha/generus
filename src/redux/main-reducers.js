@@ -9,6 +9,7 @@ export const initialState = {
     myItems: [],
     userRegData: {},
     loggedUser: [],
+    hideTabBar: false,
 }
 
 function mainReducer(state = initialState, action) {

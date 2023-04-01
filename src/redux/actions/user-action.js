@@ -19,8 +19,29 @@ export const PICK_IMAGE = 'PICK_IMAGE';
 export const IS_IMAGE_UPLOADING = 'IS_IMAGE_UPLOADING';
 export const MY_ALL_ITEMS = 'MY_ALL_ITEMS';
 export const GET_LOGGED_USER = 'GET_LOGGED_USER';
+export const HIDE_TABBAR = 'HIDE_TABBAR';
 
 
+export const hideTabBar = () => async dispatch => {
+    try {
+        dispatch({
+            type: HIDE_TABBAR,
+            payload: true,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+export const showTabBar = () => async dispatch => {
+    try {
+        dispatch({
+            type: HIDE_TABBAR,
+            payload: false,
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 export const pickImage = () => async dispatch => {
     try {

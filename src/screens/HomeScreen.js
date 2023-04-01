@@ -4,9 +4,12 @@ import CharityStoryCard from '../components/CharityStoryCard';
 import ItemCard from '../components/ItemCard';
 import Space from '../components/Space';
 import CustomColors from '../config/CustomColors';
+import { useNavigation } from '@react-navigation/native';
 
 function HomeScreen(props) {
     const [isFood, setIsFood] = useState(true);
+    const navigation = useNavigation();
+
     return (
         <View style={styles.screen}>
             <View style={styles.search}>
@@ -18,12 +21,14 @@ function HomeScreen(props) {
             <Text style={styles.charityTitle} >Charity and Social Services</Text>
             <Space width={20.0} />
             <View style={{ flexDirection: 'row' }}>
-                <View style={styles.addCharity}>
-                    <Image style={styles.addImageIcon} source={require('../assets/icon_add.png')} />
-                    <Image style={styles.charityImage} source={{
-                        uri: 'https://cdn.pixabay.com/photo/2017/09/01/21/53/sunglasses-2705642_960_720.jpg'
-                    }} />
-                </View>
+                <TouchableOpacity onPress={() => navigation.navigate('AddCharity')}>
+                    <View style={styles.addCharity}>
+                        <Image style={styles.addImageIcon} source={require('../assets/icon_add.png')} />
+                        <Image style={styles.charityImage} source={{
+                            uri: 'https://cdn.pixabay.com/photo/2017/09/01/21/53/sunglasses-2705642_960_720.jpg'
+                        }} />
+                    </View>
+                </TouchableOpacity>
                 <Space width={20.0} />
                 <CharityStoryCard
                     avator='https://cdn.pixabay.com/photo/2016/07/11/15/43/woman-1509956_960_720.jpg'
