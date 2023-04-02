@@ -11,7 +11,7 @@ const Feed = () => {
     return (
         <View style={{ alignSelf: 'center' }}>
             <Text>Feed</Text>
-            <Button title='View' onPress={() => navigation.navigate("TweetDetails")} />
+            <Button title='View' onPress={() => navigation.navigate("TweetDetails-scree")} />
         </View>
     )
 }
