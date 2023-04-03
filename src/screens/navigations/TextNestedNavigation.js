@@ -52,7 +52,6 @@ export default StackNavigation = ({ size, color }) => {
                         </TouchableOpacity>
                     ),
                     headerTitleAlign: 'center'
-
                 }}
                 name='TweetDetails' on component={TweetDetails} />
         </Stack.Navigator>
