@@ -20,7 +20,7 @@ import { pickImage, uploadCharity } from '../redux/actions/user-action';
 function AddCarityScreen(props) {
     const [spNote, setSpNote] = useState();
     const [itemName, setItemName] = useState();
-    const [items, setItems] = useState(['']);
+    const [items, setItems] = useState(['add']);
     const dispatch = useDispatch();
     const { imageUrl, isLoading, isImgUploading } = useSelector(state => state.userReducers);
     return (
