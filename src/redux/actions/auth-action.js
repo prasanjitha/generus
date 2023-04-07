@@ -86,7 +86,7 @@ export const registerUser = (data, navigation) => async dispatch => {
     createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
             const docRef = addDoc(collection(db, "generus-users"), {
-                username: data.username,
+                username: data.name,
                 email: data.email,
             });
             dispatch({
@@ -103,7 +103,7 @@ export const registerUser = (data, navigation) => async dispatch => {
                 type: IS_LOADING,
                 payload: false,
             });
-            navigation.navigate('AdditionalInfoScreen');
+            navigation.navigate('Login');
         })
         .catch(error => {
             Toast.show({
@@ -149,14 +149,14 @@ export const loginUser = (data, navigation) => async dispatch => {
         type: IS_LOADING,
         payload: true,
     });
-    signInWithEmailAndPassword(auth, data.username, data.password)
+    signInWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
             Toast.show({
                 type: 'success',
                 text1: 'User Login Success!',
                 text2: `Hello 👋`
             });
-            navigation.navigate('TabHomeScreen');
+            navigation.navigate('MessagePage');
         })
         .catch(error => {
             Toast.show({

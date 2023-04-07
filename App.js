@@ -22,8 +22,27 @@ import { Provider } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import StackNavigation from './src/screens/navigations/TextNestedNavigation';
 import TabNavigation from './src/screens/navigations/TestBottomTabNavigation';
-
+import WidlyWelcome from './src/screens/widly/screens/WidlyWelcome';
+import WdCard from './src/screens/widly/compnents/WdCard';
+import WdListingDetails from './src/screens/widly/compnents/WdListingDetails';
+import WdMessageScreen from './src/screens/widly/screens/WdMessageScreen';
+import WdIcon from './src/screens/widly/compnents/WdIcon';
+import WdListItem from './src/screens/widly/compnents/WdListItem';
+import WdAccountScreen from './src/screens/widly/screens/WdAccountScreen';
+import WdPicker from './src/screens/widly/compnents/WdPicker';
+import { useState } from 'react';
+import WdRegisterScreen from './src/screens/widly/screens/WdRegisterScreen';
+import WdLoginScreen from './src/screens/widly/screens/WdLoginScreen';
+import WdStackNavigation from './src/screens/widly/wdNavigation/WdNavigation'
+import WdAddPost from './src/screens/widly/screens/WdAddPost';
+const categories = [
+  { lable: 'Furniture', value: 1 },
+  { lable: 'Clothing', value: 2 },
+  { lable: 'Cameras', value: 3 },
+  { lable: 'Phones', value: 4 },
+];
 function App(props) {
+  const [category, setCategory] = useState();
   return (
     // <Provider store={Store}>
     //   {/* <NavigationContainer> */}
@@ -36,7 +55,18 @@ function App(props) {
     // </Provider>
     <Provider store={Store}>
       <NavigationContainer>
-        <TabNavigation />
+
+
+        <Screen>
+          {/* <WdPicker selectedItem={category} onSelectItem={(item) => setCategory(item)} items={categories} icon='apps' placeholder='Category' /> */}
+          {/* <WdListItem
+          title='My title'
+          ImageComponent={<WdIcon name='email' size={50} backgroundColor='red' iconColor='white' />}
+
+        /> */}
+          {/* <WdStackNavigation /> */}
+          <WdAddPost />
+        </Screen>
       </NavigationContainer>
     </Provider>
   );
