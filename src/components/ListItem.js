@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import CustomColors from '../config/CustomColors';
+import WdColor from '../screens/widly/config/WdColor';
 
 function ListItem({ uri, title, subTitle, onPress, ImageComponent, renderRightActions }) {
     return (
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         padding: 10,
+        backgroundColor: WdColor.white,
     },
     detailsContainer: {
         marginLeft: 15.0,

@@ -5,9 +5,7 @@ import CustomColors from '../config/CustomColors';
 function AppBorderButton({ btnText = 'SignIn' }) {
     return (
         <TouchableOpacity style={[styles.login, { backgroundColor: CustomColors.white }]}>
-
             <Text style={styles.textBtn}>{btnText}</Text>
-
         </TouchableOpacity>
     );
 }

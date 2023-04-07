@@ -38,7 +38,6 @@ function SignUpScreen(props) {
                     onSubmit={values =>
                         dispatch(registerUser(values, navigation))
                     }
-
                     validationSchema={validationSchema}
                 >
                     {({ handleChange, handleSubmit, errors, isValid, touched, setFieldTouched, values }) => (
