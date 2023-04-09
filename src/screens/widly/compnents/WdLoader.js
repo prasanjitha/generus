@@ -3,18 +3,17 @@ import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import WdColor from '../config/WdColor';
 
-function WdLoader(props) {
+function WdLoader({ width = 200, height = 200 }) {
     return (
         <View style={[StyleSheet.absoluteFillObject, styles.mainContainer]}>
-            <LottieView style={styles.lottie} source={require('../wdassets/9826-simple-loader.json')} autoPlay />
+            <LottieView style={{
+                width: width,
+                height: height,
+            }} source={require('../wdassets/70715-shadow-spinner.json')} autoPlay />
         </View>
     );
 }
 const styles = StyleSheet.create({
-    lottie: {
-        width: 200,
-        height: 200,
-    },
     mainContainer: {
         justifyContent: 'center',
         alignItems: 'center',

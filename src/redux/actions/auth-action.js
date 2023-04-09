@@ -2,6 +2,7 @@ import { auth } from "../../config/firebase";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
 } from "firebase/auth";
 import Toast from 'react-native-toast-message';
 import { db, storage } from "../../config/firebase";
@@ -144,6 +145,26 @@ export const registerUser = (data, navigation) => async dispatch => {
 
 }
 
+export const logOutUser = (navigation) => async dispatch => {
+    console.log('log out');
+    signOut()
+        .then(() => {
+            console.log('success logout user!');
+            navigation.navigate('WidlyWelcome');
+        })
+        .catch(error => {
+            Toast.show({
+                type: 'error',
+                text1: 'Invlid creadential!',
+                text2: `Please try again 👋`
+            });
+
+
+
+
+            console.error(error);
+        });
+}
 export const loginUser = (data, navigation) => async dispatch => {
     dispatch({
         type: IS_LOADING,

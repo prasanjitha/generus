@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Platform, View } from 'react-native';
 import AppPicker from './src/components/AppPicker';
 import AppTextInput from './src/components/AppTextInput';
 import Card from './src/components/Card';
@@ -18,7 +18,7 @@ import AdditionalInfoScreen from './src/screens/AdditionalInfoScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './src/Navigation/Tabs';
 import { Store } from './src/redux/store';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import Toast from 'react-native-toast-message';
 import StackNavigation from './src/screens/navigations/TextNestedNavigation';
 import TabNavigation from './src/screens/navigations/TestBottomTabNavigation';
@@ -35,14 +35,49 @@ import WdRegisterScreen from './src/screens/widly/screens/WdRegisterScreen';
 import WdLoginScreen from './src/screens/widly/screens/WdLoginScreen';
 import WdStackNavigation from './src/screens/widly/wdNavigation/WdNavigation'
 import WdAddPost from './src/screens/widly/screens/WdAddPost';
+import WdAuthNavigator from './src/screens/widly/wdNavigation/WdAuthNavigator';
+import WdNavigationTheme from './src/screens/widly/wdNavigation/WdNavigationTheme';
+import WdAppNavigator from './src/screens/widly/wdNavigation/WdAppNavigator';
+import { getAllPosts } from './src/redux/actions/user-action';
+import { useNetInfo } from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import WdOfflineNotice from './src/screens/widly/compnents/WdOfflineNotice';
+
+
 const categories = [
   { lable: 'Furniture', value: 1 },
   { lable: 'Clothing', value: 2 },
   { lable: 'Cameras', value: 3 },
   { lable: 'Phones', value: 4 },
 ];
+
+
 function App(props) {
-  const [category, setCategory] = useState();
+  // const registerForPushNotifications = async () => {
+  //   try {
+  //     const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //     if (!permission.granted) return;
+
+  //     const token = await Notification.getExpoPushTokenAsync();
+  //     console.log(token);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // registerForPushNotifications();
+  // const unsubscribe = NetInfo.addEventListener(netInfo => console.log(netInfo));
+  // const demo = async () => {
+  //   try {
+  //     await AsyncStorage.setItem('person', JSON.stringify({ id: 1 }));
+  //     const value = await AsyncStorage.getItem('person');
+  //     const person = JSON.parse(value);
+  //     console.log(person);
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // demo();
   return (
     // <Provider store={Store}>
     //   {/* <NavigationContainer> */}
@@ -53,22 +88,29 @@ function App(props) {
     //   </Screen>
     //   {/* </NavigationContainer> */}
     // </Provider>
-    <Provider store={Store}>
-      <NavigationContainer>
+    <>
+      <WdOfflineNotice />
+      <Provider store={Store}>
+        <NavigationContainer theme={WdNavigationTheme}>
 
 
-        <Screen>
-          {/* <WdPicker selectedItem={category} onSelectItem={(item) => setCategory(item)} items={categories} icon='apps' placeholder='Category' /> */}
-          {/* <WdListItem
+          <Screen>
+            {/* <WdPicker selectedItem={category} onSelectItem={(item) => setCategory(item)} items={categories} icon='apps' placeholder='Category' /> */}
+            {/* <WdListItem
           title='My title'
           ImageComponent={<WdIcon name='email' size={50} backgroundColor='red' iconColor='white' />}
 
         /> */}
-          {/* <WdStackNavigation /> */}
-          <WdAddPost />
-        </Screen>
-      </NavigationContainer>
-    </Provider>
+            {/* <WdStackNavigation /> */}
+            {/* <WdAddPost /> */}
+            {/* <WdAuthNavigator /> */}
+            <WdAppNavigator />
+
+            <Toast />
+          </Screen>
+        </NavigationContainer>
+      </Provider>
+    </>
   );
 }
 

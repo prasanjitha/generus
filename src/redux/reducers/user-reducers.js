@@ -1,5 +1,5 @@
 import { initialState } from "../main-reducers";
-import { PICK_IMAGE, IS_LOADING, IS_IMAGE_UPLOADING, MY_ALL_ITEMS, GET_LOGGED_USER, HIDE_TABBAR } from "../actions/user-action";
+import { PICK_IMAGE, IS_LOADING, IS_IMAGE_UPLOADING, MY_ALL_ITEMS, GET_LOGGED_USER, HIDE_TABBAR, ALL_POST } from "../actions/user-action";
 
 
 function userReducers(state = initialState, action) {
@@ -16,6 +16,8 @@ function userReducers(state = initialState, action) {
             return { ...state, loggedUser: action.payload };
         case HIDE_TABBAR:
             return { ...state, hideTabBar: action.payload };
+        case ALL_POST:
+            return { ...state, allPosts: action.payload };
         default:
             return state;
     }
