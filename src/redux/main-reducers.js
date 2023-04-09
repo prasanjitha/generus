@@ -10,6 +10,7 @@ export const initialState = {
     userRegData: {},
     loggedUser: [],
     hideTabBar: false,
+    allPosts: [],
 }
 
 function mainReducer(state = initialState, action) {

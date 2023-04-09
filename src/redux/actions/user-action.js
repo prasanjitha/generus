@@ -20,6 +20,7 @@ export const IS_IMAGE_UPLOADING = 'IS_IMAGE_UPLOADING';
 export const MY_ALL_ITEMS = 'MY_ALL_ITEMS';
 export const GET_LOGGED_USER = 'GET_LOGGED_USER';
 export const HIDE_TABBAR = 'HIDE_TABBAR';
+export const ALL_POST = 'ALL_POST';
 
 
 export const hideTabBar = () => async dispatch => {
@@ -117,6 +118,31 @@ export const uploadItem = (data, navigation) => async dispatch => {
     }
 
 }
+export const uploadPost = (data, navigation) => async dispatch => {
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        // data.email = auth.currentUser.email;
+        const docRef = addDoc(collection(db, "widly-post"), data);
+        console.log("Post created created");
+        await new Promise(resolve => setTimeout(resolve, 3000)); // await the programme
+        Toast.show({
+            type: 'success',
+            text1: 'Post Created Success!',
+            text2: `Post Created! 👋`
+        });
+        // navigation.navigate('SignInScreen');
+        dispatch({
+            type: IS_LOADING,
+            payload: false,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+}
 
 export const uploadCharity = (data, navigation) => async dispatch => {
     try {
@@ -162,8 +188,39 @@ export const loadMyItems = () => async dispatch => {
             }
             allData.push(item);
         });
+        console.log('print All data');
         console.log(allData);
         dispatch({ type: MY_ALL_ITEMS, payload: allData });
+        dispatch({ type: IS_LOADING, payload: false });
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+export const getAllPosts = () => async dispatch => {
+    const allData = [];
+    try {
+        dispatch({
+            type: IS_LOADING,
+            payload: true,
+        });
+        const q = query(collection(db, "widly-post"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            const item = {
+                id: doc.id,
+                imageUrl: doc.data().imageUrl,
+                itemName: doc.data().title,
+                description: doc.data().description,
+                category: doc.data().category,
+                price: doc.data().price,
+                phone: doc.data().phone,
+            }
+            allData.push(item);
+        });
+        console.log(allData);
+        dispatch({ type: ALL_POST, payload: allData });
         dispatch({ type: IS_LOADING, payload: false });
     } catch (error) {
         console.log(error);

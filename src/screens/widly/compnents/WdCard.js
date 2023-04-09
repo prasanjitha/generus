@@ -1,20 +1,22 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import WdColor from '../config/WdColor';
 
-function WdCard({ image = 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_960_720.jpg', title = 'Red jacket for sale!', subTitle = '$100' }) {
+function WdCard({ onPress, image = 'https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_960_720.jpg', title = 'Red jacket for sale!', subTitle = '$100' }) {
     return (
-        <View style={styles.card}>
-            <Image style={styles.image} source={{
-                uri: image
-            }} />
-            <View style={styles.detailsContiner}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subTitle}>{subTitle}</Text>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.card}>
+                <Image style={styles.image} source={{
+                    uri: image
+                }} />
+                <View style={styles.detailsContiner}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subTitle}>{subTitle}</Text>
+                </View>
             </View>
+        </TouchableOpacity>
 
-        </View>
     );
 }
 const styles = StyleSheet.create({

@@ -7,10 +7,13 @@ import WdPicker from '../compnents/WdPicker';
 import { useState } from 'react';
 import WdSpace from '../compnents/WdSpace';
 import { useDispatch, useSelector } from 'react-redux';
-import { pickImage } from '../../../redux/actions/auth-action';
+import { pickImage } from '../../../redux/actions/user-action';
+import { uploadPost } from '../../../redux/actions/user-action';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import WdColor from '../config/WdColor';
 import WdLoader from '../compnents/WdLoader';
+import { useNavigation } from '@react-navigation/native';
+import { getAllPosts } from '../../../redux/actions/user-action';
 
 const categories = [
     { lable: 'Furniture', value: 1, backgroundColor: 'red', icon: 'apps' },
@@ -28,39 +31,54 @@ function WdAddPost(props) {
     const [title, setTitle] = useState();
     const [price, setPrice] = useState();
     const [description, setDescription] = useState();
+    const [phone, setPhone] = useState();
     const dispatch = useDispatch();
-    const { imageUrl, isLoading, isImgUploading } = useSelector(state => state.userReducers);
+    const navigation = useNavigation();
 
+    const { imageUrl, isLoading, isImgUploading } = useSelector(state => state.userReducers);
+    console.log(isImgUploading);
     return (
-        <ScrollView style={styles.container}>
-            {imageUrl === 'imageUri' && isImgUploading === false ? <TouchableOpacity onPress={() => dispatch(pickImage())}>
-                <View style={styles.addImage}>
-                    <MaterialCommunityIcons name='plus' size={30} color={WdColor.lightGray} />
-                </View>
-            </TouchableOpacity> : isImgUploading === true ? <View style={{ width: 150, height: 150, borderRadius: 15.0, alignSelf: 'center' }}><WdLoader /></View> : <Image style={{ width: 150, height: 150, borderRadius: 15.0, alignSelf: 'center' }} source={{ uri: imageUrl }} />}
-            <WdSpace height={20.0} />
-            <WdTextInput
-                onChangeText={(text) => setTitle(text)}
-                placeholder='Title' />
-            <WdTextInput
-                onChangeText={(text) => setPrice(text)}
-                placeholder='Price' />
-            <WdTextInput
-                onChangeText={(text) => setDescription(text)}
-                placeholder='Description' />
-            <WdPicker numColumns={3} selectedItem={category} onSelectItem={(item) => setCategory(item)} items={categories} icon='apps' placeholder='Category' />
-            <WdSpace height={60.0} />
-            <WidlyButton btnText='POST' onPress={() => {
-                const data = {
-                    imageUrl: imageUrl,
-                    title: title,
-                    price: price,
-                    description: description,
-                    category: category,
-                }
-                console.log(data);
-            }} />
-        </ScrollView>
+        <>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={styles.container}>
+                {imageUrl === 'imageUri' && isImgUploading === false ? <TouchableOpacity onPress={() => dispatch(pickImage())}>
+                    <View style={styles.addImage}>
+                        <MaterialCommunityIcons name='plus' size={30} color={WdColor.lightGray} />
+                    </View>
+                </TouchableOpacity> : isImgUploading === true ? <View style={{ width: 150, height: 150, borderRadius: 15.0, overflow: 'hidden', alignSelf: 'center' }}><WdLoader /></View> : <Image style={{ width: 150, height: 150, borderRadius: 15.0, alignSelf: 'center' }} source={{ uri: imageUrl }} />}
+                <WdSpace height={20.0} />
+                <WdTextInput
+                    onChangeText={(text) => setTitle(text)}
+                    placeholder='Title' />
+                <WdTextInput
+                    onChangeText={(text) => setPrice(text)}
+                    placeholder='Price' />
+                <WdTextInput
+                    onChangeText={(text) => setDescription(text)}
+                    placeholder='Description' />
+                <WdTextInput
+                    onChangeText={(text) => setPhone(text)}
+                    placeholder='Mobile' />
+                <WdPicker numColumns={3} selectedItem={category} onSelectItem={(item) => setCategory(item)} items={categories} icon='apps' placeholder='Category' />
+                <WdSpace height={60.0} />
+                <WidlyButton btnText='POST' onPress={() => {
+                    const data = {
+                        imageUrl: imageUrl,
+                        title: title,
+                        price: price,
+                        description: description,
+                        category: category,
+                        phone: phone,
+                    }
+                    console.log(data);
+                    dispatch(uploadPost(data, navigation));
+                    dispatch(getAllPosts());
+                    // navigation.navigate('Feed');
+                }} />
+            </ScrollView>
+            {isLoading && <WdLoader />}
+        </>
     );
 }
 const styles = StyleSheet.create({

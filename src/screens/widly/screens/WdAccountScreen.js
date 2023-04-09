@@ -5,6 +5,10 @@ import WdColor from '../config/WdColor';
 import ListItem from '../../../components/ListItem';
 import WdIcon from '../compnents/WdIcon';
 import WdListItemSeperator from '../compnents/WdListItemSeperator';
+import { logOutUser } from '../../../redux/actions/auth-action';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+
 const menuItems = [
     {
         title: 'My Listings',
@@ -18,10 +22,12 @@ const menuItems = [
         icon: {
             name: 'email',
             backgroundColor: WdColor.secondary,
-        }
+        },
+        targetScreen: 'Messages'
     }
 ]
-function WdAccountScreen(props) {
+function WdAccountScreen({ navigation }) {
+    const dispatch = useDispatch();
     return (
         <View style={styles.screen}>
             <View style={styles.constiner}>
@@ -37,6 +43,7 @@ function WdAccountScreen(props) {
                     keyExtractor={item => item.title}
                     renderItem={({ item }) =>
                         <WdListItem
+                            onPress={() => navigation.navigate(item.targetScreen)}
                             title={item.title}
                             ImageComponent={<WdIcon name={item.icon.name} size={50} backgroundColor={item.icon.backgroundColor} iconColor='white' />}
                         />}
@@ -45,7 +52,12 @@ function WdAccountScreen(props) {
             </View>
             <WdListItem
                 title='Log Out'
-                ImageComponent={<WdIcon name='Log Out' backgroundColor='#ffe66d' />}
+                onPress={() =>
+                    // dispatch(logOutUser(navigation));
+                    navigation.navigate('Auth')
+                }
+
+                ImageComponent={<WdIcon name='logout' backgroundColor='#ffe66d' iconColor='white' size={50} />}
             />
         </View>
     );
