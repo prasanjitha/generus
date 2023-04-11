@@ -130,8 +130,8 @@ export const uploadPost = (data, navigation) => async dispatch => {
         await new Promise(resolve => setTimeout(resolve, 3000)); // await the programme
         Toast.show({
             type: 'success',
-            text1: 'Post Created Success!',
-            text2: `Post Created! 👋`
+            text1: 'Item Created Success!',
+            text2: `Item Created! 👋`
         });
         // navigation.navigate('SignInScreen');
         dispatch({
