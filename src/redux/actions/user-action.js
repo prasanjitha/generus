@@ -133,7 +133,7 @@ export const uploadPost = (data, navigation) => async dispatch => {
             text1: 'Item Created Success!',
             text2: `Item Created! 👋`
         });
-        // navigation.navigate('SignInScreen');
+        navigation.navigate('SignInScreen');
         dispatch({
             type: IS_LOADING,
             payload: false,
