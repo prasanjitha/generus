@@ -42,6 +42,7 @@ import { getAllPosts } from './src/redux/actions/user-action';
 import { useNetInfo } from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WdOfflineNotice from './src/screens/widly/compnents/WdOfflineNotice';
+import LandingPage from './src/screens/LandingPage';
 
 
 const categories = [
@@ -104,7 +105,8 @@ function App(props) {
             {/* <WdStackNavigation /> */}
             {/* <WdAddPost /> */}
             {/* <WdAuthNavigator /> */}
-            <WdAppNavigator />
+            {/* <WdAppNavigator /> */}
+            <LandingPage />
 
             <Toast />
           </Screen>
