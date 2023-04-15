@@ -19,7 +19,7 @@ const WdAppNavigator = () => {
         dispatch(getAllPosts());
     }, []);
     return (
-        <Tab.Navigator screenOptions={{ headerTitleAlign: 'center' }} >
+        <Tab.Navigator screenOptions={{ headerTitleAlign: 'center', tabBarHideOnKeyboard: true }} >
             <Tab.Screen name="Feed" component={WdFeedNavigator} options={{
                 tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='home' color={color} size={size} />,
                 title: 'Listings', headerShown: false

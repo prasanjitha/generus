@@ -27,7 +27,7 @@ function WdRegisterScreen(props) {
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <Text style={styles.mainTitle}>Welcome back</Text>
                 <Text style={styles.subTitle}>Please create a account</Text>
-                <Image style={styles.image} source={require('../wdassets/Group_311.png')} />
+                <Image resizeMode='contain' style={styles.image} source={require('../wdassets/Group_311.png')} />
                 <Formik
                     initialValues={{ name: '', email: '', password: '' }}
                     onSubmit={values => dispatch(registerUser(values, navigation))}
@@ -57,7 +57,7 @@ function WdRegisterScreen(props) {
                                 icon='lock'
                                 placeholder='Password' />
                             {touched.password && <Text style={styles.error}>{errors.password}</Text>}
-                            <WdSpace height={20.0} />
+                            <WdSpace height={10.0} />
                             <WidlyButton onPress={handleSubmit} btnText='REGISTER' />
                         </>)}
                 </Formik>
@@ -80,8 +80,9 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        width: 150,
-        height: 150,
+        width: 250,
+        height: 120,
+        top: 20.0,
         marginVertical: 20.0,
     },
     loginText: {
@@ -92,8 +93,8 @@ const styles = StyleSheet.create({
     },
     mainTitle: {
         fontWeight: 'bold',
-        fontSize: 46.0,
-        color: WdColor.secondary,
+        fontSize: 40.0,
+        color: WdColor.primary,
     },
     subTitle: {
         fontWeight: 'bold',

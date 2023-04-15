@@ -25,7 +25,7 @@ function WdLoginScreen(props) {
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <Text style={styles.mainTitle}>Welcome back</Text>
                 <Text style={styles.subTitle}>Login to continue</Text>
-                <Image style={styles.image} source={require('../wdassets/Group_310.png')} />
+                <Image resizeMode='contain' style={styles.image} source={require('../wdassets/Group_310.png')} />
                 <Formik
                     initialValues={{ email: '', password: '' }}
                     onSubmit={values => dispatch(loginUser(values, navigation))}
@@ -70,12 +70,15 @@ const styles = StyleSheet.create({
     },
     image: {
         alignSelf: 'center',
-        marginVertical: 40.0,
+        top: 20.0,
+        marginVertical: 20.0,
+        width: 200.0,
+        height: 150.0,
     },
     mainTitle: {
         fontWeight: 'bold',
-        fontSize: 46.0,
-        color: WdColor.secondary,
+        fontSize: 40.0,
+        color: WdColor.primary,
     },
     registerText: {
         alignSelf: 'center',

@@ -104,9 +104,9 @@ function App(props) {
         /> */}
             {/* <WdStackNavigation /> */}
             {/* <WdAddPost /> */}
-            {/* <WdAuthNavigator /> */}
+            <WdAuthNavigator />
             {/* <WdAppNavigator /> */}
-            <LandingPage />
+            {/* <LandingPage /> */}
 
             <Toast />
           </Screen>

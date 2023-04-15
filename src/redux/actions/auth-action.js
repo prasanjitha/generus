@@ -84,6 +84,10 @@ export const uploadUserAdditionalInfo = (data, navigation) => async dispatch => 
 
 export const registerUser = (data, navigation) => async dispatch => {
     console.log('user reg data', data);
+    dispatch({
+        type: IS_LOADING,
+        payload: true,
+    });
     createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
             const docRef = addDoc(collection(db, "generus-users"), {
@@ -177,7 +181,7 @@ export const loginUser = (data, navigation) => async dispatch => {
                 text1: 'User Login Success!',
                 text2: `Hello 👋`
             });
-            navigation.navigate('MessagePage');
+            navigation.navigate('AppNavigator');
         })
         .catch(error => {
             Toast.show({
