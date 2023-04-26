@@ -30,7 +30,7 @@ const WdAppNavigator = () => {
                     tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='plus-circle' color={color} size={size} />,
                     title: 'Add Post',
                 })} />
-            <Tab.Screen name="Account" component={WdAccountNavigator} options={{
+            <Tab.Screen name="Accounts" component={WdAccountNavigator} options={{
                 tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='account' color={color} size={size} />,
                 headerShown: false
             }} />
